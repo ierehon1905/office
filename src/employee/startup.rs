@@ -6,9 +6,9 @@ use crate::{collisions::*, utils::*, world::GameMaterials};
 use super::components::{employee::Employee, taskable::Taskable, *};
 
 pub(crate) fn add_people(mut commands: Commands, handles: Res<GameMaterials>) {
-    add_person(&mut commands, &handles, "Elaina Proctor");
-    add_person(&mut commands, &handles, "Renzo Hume");
-    add_person(&mut commands, &handles, "Zayna Nieves");
+    for i in 0..50 {
+        add_person(&mut commands, &handles, &format!("Employee #{}", i + 1));
+    }
 }
 
 fn add_person(commands: &mut Commands, handles: &Res<GameMaterials>, name: &str) {
@@ -19,7 +19,7 @@ fn add_person(commands: &mut Commands, handles: &Res<GameMaterials>, name: &str)
     commands
         .spawn()
         .insert(Employee)
-        .insert(Name(name.to_string()))
+        .insert(Title(name.to_string()))
         .insert_bundle(bevy::sprite::MaterialMesh2dBundle {
             mesh: handles.employee_mesh.clone_weak().into(),
             material: handles.employee_material.clone_weak().into(),

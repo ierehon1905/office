@@ -17,9 +17,9 @@ pub fn vec2_to_vec3(input: &Vec2) -> Vec3 {
 }
 
 #[derive(Component, Debug)]
-pub(crate) struct Name(pub String);
+pub(crate) struct Title(pub String);
 
-impl std::fmt::Display for Name {
+impl std::fmt::Display for Title {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.0)
     }

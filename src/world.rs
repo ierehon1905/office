@@ -1,5 +1,5 @@
 use crate::{employee::plugin::EmployeePlugin, office_block::plugin::OfficeBlockPlugin};
-use bevy::prelude::*;
+use bevy::{prelude::*, render::camera::RenderTarget};
 use bevy_rapier2d::prelude::*;
 
 #[derive(Component)]
@@ -41,6 +41,8 @@ pub(crate) struct GameMaterials {
     pub(crate) office_block_mesh: Handle<Mesh>,
     pub(crate) desk_mesh: Handle<Mesh>,
     pub(crate) desk_materials: DeskMaterials,
+    pub(crate) floor_materials: Handle<ColorMaterial>,
+    pub(crate) floor_mesh: Handle<Mesh>,
 }
 
 fn setup(
@@ -50,6 +52,10 @@ fn setup(
 ) {
     let res = GameMaterials {
         employee_material: materials.add(ColorMaterial::from(Color::YELLOW)),
+        floor_materials: materials.add(ColorMaterial::from(Color::MIDNIGHT_BLUE)),
+        floor_mesh: meshes
+            .add(shape::Quad::new(Vec2::new(1000.0, 10.0)).into())
+            .into(),
         employee_mesh: meshes.add(shape::Quad::new(Vec2::new(20.0, 100.0)).into()),
         office_block_material: materials.add(ColorMaterial::from(Color::GRAY)),
         office_block_mesh: meshes.add(shape::Quad::new(Vec2::new(1000.0, 300.0)).into()),
@@ -68,19 +74,19 @@ fn setup_physics(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    let ground_height = 10.0;
-    let ground_width = 1000.0;
-    commands
-        .spawn_bundle(bevy::sprite::MaterialMesh2dBundle {
-            mesh: meshes
-                .add(shape::Quad::new(Vec2::new(ground_width, ground_height)).into())
-                .into(),
-            material: materials.add(ColorMaterial::from(Color::BEIGE)),
-            transform: Transform::from_translation(Vec3::new(0.0, -ground_height / 2.0, 0.)),
-            ..default()
-        })
-        .insert(RigidBody::Fixed)
-        .insert(Collider::cuboid(500.0, 5.0));
+    // let ground_height = 10.0;
+    // let ground_width = 1000.0;
+    // commands
+    //     .spawn_bundle(bevy::sprite::MaterialMesh2dBundle {
+    //         mesh: meshes
+    //             .add(shape::Quad::new(Vec2::new(ground_width, ground_height)).into())
+    //             .into(),
+    //         material: materials.add(ColorMaterial::from(Color::BEIGE)),
+    //         transform: Transform::from_translation(Vec3::new(0.0, -ground_height / 2.0, 0.)),
+    //         ..default()
+    //     })
+    //     .insert(RigidBody::Fixed)
+    //     .insert(Collider::cuboid(500.0, 5.0));
     /* Create the bouncing ball. */
     // commands
     //     .spawn()

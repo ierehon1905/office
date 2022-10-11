@@ -1,11 +1,18 @@
 use bevy::{math::Vec3Swizzles, prelude::*};
 use bevy_rapier2d::{na::RealField, prelude::Velocity};
-use pid_control::*;
+// use pid_control::*;
 use rand::random;
 
 use crate::utils::Name;
 
-use super::{components::*, resources::*};
+use super::{
+    components::{
+        employee::Employee,
+        taskable::{TaskType, Taskable},
+        *,
+    },
+    resources::*,
+};
 
 pub(crate) fn greet_people(
     time: Res<Time>,

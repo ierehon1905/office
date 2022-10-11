@@ -3,7 +3,7 @@ use bevy_rapier2d::prelude::*;
 
 use crate::{collisions::*, utils::*, world::GameMaterials};
 
-use super::components::*;
+use super::components::{employee::Employee, taskable::Taskable, *};
 
 pub(crate) fn add_people(mut commands: Commands, handles: Res<GameMaterials>) {
     add_person(&mut commands, &handles, "Elaina Proctor");
@@ -14,6 +14,7 @@ pub(crate) fn add_people(mut commands: Commands, handles: Res<GameMaterials>) {
 fn add_person(commands: &mut Commands, handles: &Res<GameMaterials>, name: &str) {
     let mut pos = vec2_to_vec3(&random_vec2(100.0));
     pos.y += 100.0;
+    pos.z = EntitiesZIndex::Employee.into();
 
     commands
         .spawn()

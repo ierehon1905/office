@@ -16,5 +16,25 @@ pub fn vec2_to_vec3(input: &Vec2) -> Vec3 {
     }
 }
 
-#[derive(Component)]
-pub struct Name(pub String);
+#[derive(Component, Debug)]
+pub(crate) struct Name(pub String);
+
+impl std::fmt::Display for Name {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+
+pub(crate) enum EntitiesZIndex {
+    Background,
+    Ground,
+    Office,
+    Misc,
+    Employee,
+}
+
+impl From<EntitiesZIndex> for f32 {
+    fn from(z_index: EntitiesZIndex) -> Self {
+        z_index as u32 as f32
+    }
+}

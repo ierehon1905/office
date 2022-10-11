@@ -1,8 +1,9 @@
 mod camera;
 mod collisions;
+mod employee;
+mod office_block;
 mod utils;
 mod world;
-mod employee;
 
 use bevy::prelude::*;
 use camera::CustomCameraPlugin;

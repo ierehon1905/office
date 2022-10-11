@@ -1,10 +1,5 @@
 use bevy::prelude::*;
 
-use crate::utils::Name;
-
-#[derive(Component)]
-pub struct Employee;
-
 #[derive(Component, Default)]
 
 pub(crate) struct Taskable {

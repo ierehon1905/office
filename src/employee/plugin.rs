@@ -1,7 +1,8 @@
+extern crate multi_map;
 use bevy::prelude::*;
 
 use super::{
-    resources::{EmployeeController, GreetTimer, WorkCheckTimer},
+    resources::{EmployeeController, EmployeeDeskTable, GreetTimer, WorkCheckTimer},
     startup::add_people,
     systems::{make_people_work, move_taskable},
 };
@@ -12,6 +13,7 @@ impl Plugin for EmployeePlugin {
     fn build(&self, app: &mut App) {
         app.insert_resource(GreetTimer(Timer::from_seconds(2.0, true)))
             .insert_resource(WorkCheckTimer(Timer::from_seconds(0.5, true)))
+            .insert_resource(EmployeeDeskTable::default())
             .insert_resource(EmployeeController::new())
             .add_startup_system_to_stage(StartupStage::Startup, add_people)
             .add_system(make_people_work)

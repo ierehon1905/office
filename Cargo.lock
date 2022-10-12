@@ -2046,6 +2046,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "multi-map"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bba551d6d795f74a01767577ea8339560bf0a65354e0417b7e915ed608443d46"
+
+[[package]]
 name = "naga"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2378,6 +2384,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bevy_rapier2d",
+ "multi-map",
  "pid_control",
  "rand",
 ]

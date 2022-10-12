@@ -56,12 +56,12 @@ pub(crate) fn move_taskable(
 pub(crate) fn make_people_work(
     time: Res<Time>,
     mut timer: ResMut<WorkCheckTimer>,
-    mut query: Query<(&mut Taskable, &Transform)>,
+    mut employee_query: Query<(&mut Taskable, &Transform)>,
     desk_query: Query<&GlobalTransform, With<Desk>>,
 ) {
     if timer.0.tick(time.delta()).just_finished() {
         let mut rng = rand::thread_rng();
-        for (mut taskable, taskable_pos) in query.iter_mut() {
+        for (mut taskable, taskable_pos) in employee_query.iter_mut() {
             match taskable.task {
                 None => {
                     use rand::seq::IteratorRandom;

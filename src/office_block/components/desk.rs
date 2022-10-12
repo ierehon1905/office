@@ -15,7 +15,6 @@ impl Default for Cleanness {
 
 #[derive(Component, Default)]
 pub(crate) struct Desk {
-    pub(crate) occupant: Option<Entity>,
     pub(crate) cleanness: Cleanness,
 }
 

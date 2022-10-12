@@ -5,8 +5,10 @@ use crate::{collisions::*, utils::*, world::GameMaterials};
 
 use super::components::{employee::Employee, taskable::Taskable, *};
 
+const INITIAL_EMPLOYEE_COUNT: i32 = 3;
+
 pub(crate) fn add_people(mut commands: Commands, handles: Res<GameMaterials>) {
-    for i in 0..50 {
+    for i in 0..INITIAL_EMPLOYEE_COUNT {
         add_person(&mut commands, &handles, &format!("Employee #{}", i + 1));
     }
 }

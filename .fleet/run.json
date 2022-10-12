@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "cargo",
+            "name": "Dev",
+            "cargoArgs": ["run", "--features", "bevy/dynamic"],
+        },
+
+    ]
+}

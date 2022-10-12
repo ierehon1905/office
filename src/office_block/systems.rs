@@ -4,6 +4,8 @@ use bevy_rapier2d::prelude::*;
 use crate::camera::CursorPosition;
 use crate::collisions::{to_interaction_group, OFFICE_BLOCK_GROUP};
 use crate::employee::components::employee::Employee;
+
+use crate::employee::resources::EmployeeDeskTable;
 use crate::office_block::startup::add_office_block;
 use crate::utils::Title;
 use crate::world::GameMaterials;
@@ -27,20 +29,25 @@ pub(crate) fn notify_employee_reach_desk(
 }
 
 pub(crate) fn assign_employees_to_desks(
-    employees: Query<(&Title, Entity), With<Employee>>,
-    mut desks: Query<(&Title, &mut Desk, &mut Handle<ColorMaterial>, Entity)>,
-    time: Res<Time>,
-    mut timer: ResMut<DeskAssignTimer>,
+    mut commands: Commands,
     materials: Res<GameMaterials>,
+    time: Res<Time>,
+    employees: Query<(&Title, Entity), With<Employee>>,
+    mut timer: ResMut<DeskAssignTimer>,
+    mut desks: Query<(&Title, &mut Desk, &mut Handle<ColorMaterial>, Entity)>,
+    mut employee_desk: ResMut<EmployeeDeskTable>,
 ) {
     if timer.0.tick(time.delta()).just_finished() {
         for employee in employees.iter() {
             for mut desk in desks.iter_mut() {
-                if desk.1.occupant.is_none() {
-                    *desk.2 = materials.desk_materials.occupied.clone_weak();
-                    // println!("{}");
-                    desk.1.occupant = Some(employee.1);
+                if employee_desk.0.contains_key(&employee.1)
+                    || employee_desk.0.contains_key_alt(&desk.3)
+                {
+                    continue;
                 }
+                println!("Assigned {} to desk {}", employee.0, desk.0);
+                employee_desk.0.insert(employee.1, desk.3, ());
+                *desk.2 = materials.desk_materials.occupied.clone_weak();
             }
         }
     }
